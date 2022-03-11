@@ -1,3 +1,5 @@
+exception EmptyExprList of string;;
+
 type expr =
   | NUM of int
   | PLUS of expr * expr
@@ -8,6 +10,15 @@ type expr =
 ;;
 
 let rec eval (e: expr) : int =
+  let rec calcMax (expr_list: expr list) : int =
+    match expr_list with
+    | expr_head::expr_tail -> (
+      if expr_tail = [] then eval (expr_head)
+      else if eval (expr_head) > (calcMax expr_tail) then eval (expr_head)
+      else (calcMax expr_tail)
+    )
+    | _ -> raise (EmptyExprList "expr list is empty!")
+  in
   match e with
   | NUM tail_int -> tail_int
   | PLUS (expr1, expr2) -> (eval expr1) + (eval expr2)
@@ -17,11 +28,7 @@ let rec eval (e: expr) : int =
   | MAX expr_list -> (
     match expr_list with
     | [] -> 0
-    | expr_head::expr_tail -> (
-      if (eval expr_head) > (eval (MAX expr_tail))
-      then (eval expr_head)
-      else (eval (MAX expr_tail))
-    )
+    | _ -> calcMax expr_list
   )
 ;;
 
