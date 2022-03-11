@@ -1,11 +1,10 @@
-open Ex1_1;;
+open Ex1_1
 
 let l0 = []
 let l1 = [5; 3; 1]
 let l2 = [4; 2; 0]
 let l3 = [10; 7; 6]
 let l4 = [11; 9; 8]
-;;
 
 let _=
   let _ = Printf.printf("ex1-1: merge ordered list\n") in
@@ -28,5 +27,3 @@ let _=
   print_bool (merge ([3;2;1], [6;5;4]) = [6;5;4;3;2;1]);
   print_bool (merge ([5;3;1], [4;2]) = [5;4;3;2;1]);
   print_bool (merge ([10;2;1], [10;4;3]) = [10;10;4;3;2;1]);
-
-;;

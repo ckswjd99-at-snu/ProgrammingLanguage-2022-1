@@ -1,4 +1,4 @@
-open Ex1_4;;
+open Ex1_4
 
 let c1 = ONE NIL
 let c2 = ONE (ZERO (ONE NIL))
@@ -31,6 +31,3 @@ let _=
   print_bool (crazy2val (c6 1) = 3);
   print_bool (crazy2val (c6 2) = 27);
   print_bool (crazy2val (c6 3) = 219);
-;;
-
-(* let _ = Printf.printf("%d\n") (crazy2val (MONE (ONE (ONE (ZERO (MONE (ONE (ONE (ZERO (ONE (ZERO (MONE NIL)))))))))))) *)

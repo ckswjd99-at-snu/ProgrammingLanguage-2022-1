@@ -1,4 +1,4 @@
-open Ex1_3;;
+open Ex1_3
 
 let f1 = TRUE
 let f2 = FALSE
@@ -11,11 +11,10 @@ let f8 = ORELSE (IMPLY (NOT f6, f2), ANDALSO (ORELSE (f3, NOT f4), NOT f7))
 let f9 = LESS (NUM 1, NUM 2)
 let fa = LESS (PLUS (NUM 1, NUM 2), MINUS (NUM 0, NUM 121))
 let fb =
-  LESS
-    (MINUS
+  LESS (
+    MINUS
       (PLUS (NUM 5, MINUS (NUM 1, NUM 21)),
        MINUS (NUM 0, NUM 100)), NUM 2)
-;;
 
 let _=
   let _ = Printf.printf("ex1-3: boolean eval\n") in
@@ -75,7 +74,3 @@ let _=
   print_bool (eval (LESS (MINUS (NUM 3, NUM 5), MINUS (NUM 1, NUM 2))) = true);
   print_bool (eval (ORELSE (LESS (PLUS (MINUS (NUM 3, NUM 2), NUM 9), NUM 10), FALSE)) = false);
   print_bool (eval (IMPLY(LESS (NUM 1, NUM 0), ANDALSO(TRUE, ORELSE(NOT TRUE, LESS(NUM 2, NUM 1))))) = true);
-;;
-
-
-

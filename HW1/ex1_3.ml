@@ -10,14 +10,12 @@ and expr =
   | NUM of int
   | PLUS of expr * expr
   | MINUS of expr * expr
-;;
 
 let rec eval_expr (e: expr) : int =
   match e with
   | NUM number -> number
   | PLUS (expr1, expr2) -> (eval_expr expr1) + (eval_expr expr2)
   | MINUS (expr1, expr2) -> (eval_expr expr1) - (eval_expr expr2)
-;;
 
 let rec eval (f: formula) : bool =
   match f with
@@ -28,22 +26,3 @@ let rec eval (f: formula) : bool =
   | ORELSE (following1, following2) -> if (eval following1) then true else (eval following2)
   | IMPLY (following1, following2) -> if not (eval following1) then true else (eval following2)
   | LESS (expr1, expr2) -> (eval_expr expr1) < (eval_expr expr2)
-;;
-
-
-(* let result = eval (
-  NOT(
-    ORELSE(
-      (ANDALSO (TRUE, TRUE)),
-      (IMPLY(
-        LESS(
-          MINUS(NUM 5, NUM 1),
-          PLUS(NUM 5, NUM 1)
-        ),
-        TRUE
-      ))
-    )
-  )
-)
-open Printf
-let () = printf("%b\n") result *)

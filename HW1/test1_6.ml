@@ -1,4 +1,4 @@
-open Ex1_6;;
+open Ex1_6
 
 let _=
   let _ = Printf.printf("ex1-6: eval number\n") in
@@ -11,5 +11,3 @@ let _=
   print_bool(eval(DIVIDE (NUM 5, NUM 3)) = 1);
   print_bool(eval(MAX [NUM 1; NUM 2; NUM 3; NUM 4; NUM 5]) = 5);
   print_bool(eval(MAX [NUM (-1); NUM (-2); NUM (-3); NUM (-4); NUM (-5)]) = -1);
-
-;;

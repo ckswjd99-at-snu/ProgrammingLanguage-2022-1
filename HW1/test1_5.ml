@@ -1,28 +1,24 @@
-open Ex1_5;;
+open Ex1_5
 
-let c0 = ZERO NIL;;
-let c1 = ONE NIL;;
-let c2 = ONE (ZERO (ONE NIL));;
-let c3 = ONE (MONE NIL);;
-let c4 = ONE (MONE (ZERO (MONE NIL)));;
+let c0 = ZERO NIL
+let c1 = ONE NIL
+let c2 = ONE (ZERO (ONE NIL))
+let c3 = ONE (MONE NIL)
+let c4 = ONE (MONE (ZERO (MONE NIL)))
 let rec c5 n =
   if n = 0 then NIL
   else ONE (MONE (c5 (n-1)))
-;;
 let rec c6 n =
   if n = 0 then NIL
   else MONE (ZERO (ONE (c6 (n-1))))
-;;
-let c7 = MONE (ZERO (ZERO (ZERO NIL)));;
+let c7 = MONE (ZERO (ZERO (ZERO NIL)))
 let c8 =
   ZERO (ONE (ONE (ZERO (MONE (ONE (ONE (ZERO (ONE (ZERO (MONE NIL))))))))))
-;;
-let zero = ZERO NIL;;
-let one = MONE (ONE (ZERO NIL));;
-let four = ZERO (ZERO (MONE (ONE NIL)));;
-let m_five = ONE (MONE (ONE (MONE NIL)));;
-let m_one = (ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(MONE NIL))))))))))))))))))))))))))))));;
-
+let zero = ZERO NIL
+let one = MONE (ONE (ZERO NIL))
+let four = ZERO (ZERO (MONE (ONE NIL)))
+let m_five = ONE (MONE (ONE (MONE NIL)))
+let m_one = (ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(ONE(MONE NIL))))))))))))))))))))))))))))))
 
 let rec crazy2val: crazy2 -> int = fun c ->
   match c with
@@ -30,7 +26,6 @@ let rec crazy2val: crazy2 -> int = fun c ->
   | ZERO following -> 0 + 2 * crazy2val following
   | ONE following -> 1 + 2 * crazy2val following
   | MONE following -> -1 + 2 * crazy2val following
-;;
 
 let _=
   let _ = Printf.printf("ex1-5: crazy2add\n") in
@@ -126,6 +121,6 @@ let _=
   print_bool (crazy2val (crazy2add (ZERO (ONE (MONE (ZERO (ONE (MONE NIL))))), ONE (MONE (MONE (ONE (ONE NIL)))))) = 1);
   print_bool (crazy2val (crazy2add (ONE (MONE (ZERO (ONE (MONE NIL)))), ZERO (ONE (MONE (ZERO (ONE (MONE NIL))))))) = -27);
   print_bool (crazy2val (crazy2add (ZERO (ZERO (ZERO (ZERO (ZERO (ZERO (ONE NIL)))))), ZERO (ZERO (ZERO (ZERO (ZERO (ZERO (ONE NIL)))))))) = 128);
-;;
 
-let result = crazy2add (MONE (ZERO (ZERO (ZERO NIL))), (ZERO (ONE (ONE (ZERO (MONE (ONE (ONE (ZERO (ONE (ZERO (MONE NIL))))))))))));;
+
+let result = crazy2add (MONE (ZERO (ZERO (ZERO NIL))), (ZERO (ONE (ONE (ZERO (MONE (ONE (ONE (ZERO (ONE (ZERO (MONE NIL))))))))))))

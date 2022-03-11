@@ -1,8 +1,7 @@
-open Ex1_2;;
+open Ex1_2
 
 let foo = fun n -> n * 2
 let bar = fun n -> n * n
-;;
 
 let _=
   let _ = Printf.printf("ex1-2: sigma\n") in
@@ -35,22 +34,3 @@ let _=
   print_bool (sigma (10, 5, fun x -> x) = 0);
   print_bool (sigma (1, 10, fun x -> if x mod 2 = 0 then 1 else 0 ) = 5);
   print_bool (sigma (1, 10, fun x -> x * x) = 385);
-;;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
