@@ -2,6 +2,8 @@ RUNTIME=ocaml
 COMPILER=ocamlc
 MODULER=ocamlopt
 
+all: compile_test
+
 clean: 
 	@rm -f *.o *.out *.cmi *.cmx *.cmo test
 
@@ -34,3 +36,4 @@ test: clean modules
 	@./test1_4.out
 	@./test1_5.out
 	@./test1_6.out
+	@make clean
