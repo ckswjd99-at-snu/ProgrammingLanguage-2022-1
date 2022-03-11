@@ -1,7 +1,7 @@
 open Ex1_4;;
-open Ex1_5_new;;
 
 let _=
+  let _ = Printf.printf("ex1-4: crazy2val\n") in
   let print_bool x = print_endline (string_of_bool x) in
   print_bool (-1  = (crazy2val (MONE NIL)));
   print_bool (1   = (crazy2val (ONE (ZERO (ZERO (ZERO NIL))))));
