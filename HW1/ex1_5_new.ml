@@ -71,7 +71,7 @@ let crazy2add ((operand1, operand2): crazy2 * crazy2) : crazy2 =
 
 
 (* DEBUG AREA *)
-let rec crazy2val (c: crazy2) : int =
+(* let rec crazy2val (c: crazy2) : int =
   match c with
   | NIL -> 0
   | ZERO following -> 0 + 2 * crazy2val following
@@ -98,4 +98,4 @@ let test2 = MONE(MONE(MONE(MONE(MONE(MONE NIL)))));;
 let test2val = crazy2val(test2);;
 let result = crazy2add(test1, test2);;
 let resultAsVal = crazy2val(result);;
-let () = Printf.printf("%d %d %d\n") test1val test2val resultAsVal;;
+let () = Printf.printf("%d %d %d\n") test1val test2val resultAsVal;; *)
