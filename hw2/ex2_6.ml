@@ -32,8 +32,3 @@ module IntListQ =
       )
       | (stackL, exHead::stackR) -> (exHead, (stackL, stackR))
   end
-
-let myQ = IntListQ.emptyQ
-let yourQ = IntListQ.enQ(myQ, [1])
-let (x, restQ) = IntListQ.deQ yourQ
-let hisQ = IntListQ.enQ(myQ, [2])

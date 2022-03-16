@@ -16,6 +16,10 @@ let x4, qb = IntListQ.deQ qa
 let x5, qc = IntListQ.deQ qb
 let x6, qd = IntListQ.deQ qc
 
+let q21 = IntListQ.emptyQ
+let q22 = IntListQ.enQ(IntListQ.enQ(IntListQ.enQ(q21, [1]), [2; 3]), [4; 5; 6])
+let e1, q3 = IntListQ.deQ q22
+
 let _=
   let _ = Printf.printf("ex2-6: queue = 2 * stack\n") in
   let print_bool x = print_endline (string_of_bool x) in
@@ -31,17 +35,9 @@ let _=
   print_bool (x6 = [6]);
   print_bool (qd = q1);
   print_bool (try IntListQ.deQ qd = ([], q1) with IntListQ.EMPTY_Q -> true | _ -> false);
-
-
-let q1 = IntListQ.emptyQ
-let q2 = IntListQ.enQ(IntListQ.enQ(IntListQ.enQ(q1, [1]), [2; 3]), [4; 5; 6])
-let e1, q3 = IntListQ.deQ q2
-
-let _=
-  let print_bool x = print_endline (string_of_bool x) in
-
-  print_bool (q1 = ([], []));
-  print_bool (q2 = ([[4; 5; 6]; [2; 3]; [1]], []));
+  
+  print_bool (q21 = ([], []));
+  print_bool (q22 = ([[4; 5; 6]; [2; 3]; [1]], []));
   print_bool (e1 = [1]);
   print_bool (q3 = ([], [[2; 3]; [4; 5; 6]]));
 
