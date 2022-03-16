@@ -1,0 +1,31 @@
+[Header]
+
+[Test]
+crazy2val (ZERO (ZERO (ZERO NIL)))
+
+[Value]
+0
+
+[Test]
+crazy2val (ONE (ZERO (ONE NIL)))
+
+[Value]
+5
+
+[Test]
+crazy2val (ONE (ZERO (MONE (ZERO NIL))))
+
+[Value]
+-3
+
+[Test]
+crazy2val (ONE (MONE (MONE (ONE (ONE NIL)))))
+
+[Value]
+19
+
+[Test]
+crazy2val (ONE (ONE (MONE (ONE (MONE NIL)))))
+
+[Value]
+-9

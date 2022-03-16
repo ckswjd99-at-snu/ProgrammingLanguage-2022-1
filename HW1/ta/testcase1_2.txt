@@ -1,0 +1,63 @@
+[Header]
+
+[Test]
+sigma (10, 10, fun x -> x)
+
+[Value]
+10
+
+[Test]
+sigma (11, 10, fun x -> x)
+
+[Value]
+0
+
+[Test]
+sigma (10, 5, fun x -> x)
+
+[Value]
+0
+
+[Test]
+sigma (1, 10, fun x -> if x mod 2 = 0 then 1 else 0 )
+
+[Value]
+5
+
+[Test]
+sigma (1, 10, fun x -> x * x)
+
+[Value]
+385
+
+
+[Test]
+sigma (10, 12, fun x -> 2 * x)
+
+[Value]
+66
+
+
+[Test]
+sigma (0, 10, fun x -> if x -1 > 0 then x-1 else 0)
+
+[Value]
+45
+
+[Test]
+sigma(0,100, fun x -> 0)
+
+[Value]
+0
+
+[Test]
+sigma(0,100, fun x -> 0)
+
+[Value]
+0
+
+[Test]
+sigma(2,10, fun x -> x + 10)
+
+[Value]
+144

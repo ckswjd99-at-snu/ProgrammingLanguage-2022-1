@@ -1,0 +1,45 @@
+[Header]
+
+let rec ta_crazy2val : crazy2 -> int = fun cr ->
+  match cr with
+  |NIL -> 0
+  |ZERO cr' -> 2 * (ta_crazy2val cr')
+  |ONE cr' -> 1 + 2 * (ta_crazy2val cr')
+  |MONE cr' -> -1 + 2 * (ta_crazy2val cr')
+
+let cr0 = ONE (ONE (ONE NIL))    (* 7 *)
+let cr1 = MONE (ONE (ZERO (ZERO NIL)))    (* 1 *)
+let cr2 = MONE (ONE (MONE NIL))    (* -3 *)
+let cr3 = ONE (MONE (ZERO (ONE (MONE NIL)))) (* -9 *)
+let cr4 = MONE (ONE (ZERO (MONE (ONE NIL)))) (* +9 *)
+
+[Test]
+ta_crazy2val (crazy2add (cr0, cr0))
+
+[Value]
+14
+
+[Test]
+ta_crazy2val (crazy2add (cr0, cr1))
+
+[Value]
+8
+
+[Test]
+ta_crazy2val (crazy2add (cr1, cr2))
+
+[Value]
+-2
+
+[Test]
+ta_crazy2val (crazy2add (cr2, cr3))
+
+[Value]
+-12
+
+[Test]
+ta_crazy2val (crazy2add (cr3, cr4))
+
+[Value]
+0
+

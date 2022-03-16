@@ -1,0 +1,61 @@
+[Header]
+
+[Test]
+eval (NUM 4)
+
+[Value]
+4
+
+[Test]
+eval (MINUS (NUM 6, NUM 3))
+
+[Value]
+3
+
+[Test]
+eval (MINUS (NUM 1, MINUS (NUM 6, NUM 3)))
+
+[Value]
+-2
+
+[Test]
+eval (MULT (NUM 2, PLUS (NUM 3, NUM 4)))
+
+[Value]
+14
+
+[Test]
+eval (DIVIDE (MULT (NUM 6, PLUS (NUM 3, NUM 4)), MULT (NUM 2, PLUS (NUM 3, NUM 4))))
+
+[Value]
+3
+
+[Test]
+eval (MAX [NUM 1; NUM 3; NUM 2])
+
+[Value]
+3
+
+[Test]
+eval (MAX [])
+
+[Value]
+0
+
+[Test]
+eval (MAX [MAX []; MULT (NUM 2, PLUS (NUM 3, NUM 4)); MINUS (NUM 6, NUM 3)])
+
+[Value]
+14
+
+[Test]
+eval (PLUS (PLUS (NUM 1, PLUS (NUM 1, NUM 1)), PLUS (PLUS (NUM 1, NUM 1), NUM 1)))
+
+[Value]
+6
+
+[Test]
+eval (DIVIDE (NUM 20, MULT (NUM 5, DIVIDE (NUM 10, NUM 5))))
+
+[Value]
+2
