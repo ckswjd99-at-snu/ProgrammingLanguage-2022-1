@@ -12,6 +12,8 @@ let _=
   let _ = Printf.printf("ex2-5: zipper\n") in
   let print_bool x = print_endline (string_of_bool x) in
 
+  let (|>) g f = f g in
+
   print_bool (try goLeft empty = empty with NOMOVE _ -> true | _ -> false);
   print_bool (try goRight empty = empty with NOMOVE _ -> true | _ -> false);
   print_bool (try goUp empty = empty with NOMOVE _ -> true | _ -> false);
@@ -44,3 +46,48 @@ let _=
 
   print_bool (loc4 = LOC (NODE [LEAF "a"; LEAF "*"; LEAF "b"], HAND ([], TOP, [LEAF "+"; NODE [LEAF "c"; LEAF "*"; LEAF "d"]])));
   print_bool (loc5 = LOC (LEAF "*", HAND ([LEAF "a"], HAND ([], TOP, [LEAF "+"; NODE [LEAF "c"; LEAF "*"; LEAF "d"]]), [LEAF "b"])));
+
+  let loc1 = LOC (NODE [NODE [LEAF "a"; LEAF "*"; LEAF "b"];
+    LEAF "+";
+    NODE [LEAF "c"; LEAF "*"; LEAF "d"]],
+    TOP)
+  in
+
+  print_bool ( loc1 |> goDown =
+    LOC (NODE [LEAF "a"; LEAF "*"; LEAF "b"],
+    HAND ([], TOP, [LEAF "+"; NODE [LEAF "c"; LEAF "*"; LEAF "d"]]))
+  );
+
+  print_bool ( loc1 |> goDown |> goDown =
+    LOC (LEAF "a",
+    HAND ([], HAND ([], TOP, [LEAF "+"; NODE [LEAF "c"; LEAF "*"; LEAF "d"]]),
+      [LEAF "*"; LEAF "b"]))
+  );
+
+  print_bool ( loc1 |> goDown |> goUp |> goDown =
+    LOC (NODE [LEAF "a"; LEAF "*"; LEAF "b"],
+    HAND ([], TOP, [LEAF "+"; NODE [LEAF "c"; LEAF "*"; LEAF "d"]]))
+  );
+
+  print_bool ( loc1 |> goDown |> goDown |> goRight =
+    LOC (LEAF "*",
+    HAND ([LEAF "a"],
+      HAND ([], TOP, [LEAF "+"; NODE [LEAF "c"; LEAF "*"; LEAF "d"]]),
+      [LEAF "b"]))
+  );
+
+  print_bool ( loc1 |> goDown |> goDown |> goRight |> goLeft |> goRight |> goRight =
+    LOC (LEAF "b",
+    HAND ([LEAF "*"; LEAF "a"],
+      HAND ([], TOP, [LEAF "+"; NODE [LEAF "c"; LEAF "*"; LEAF "d"]]),
+      []))
+  );
+
+  print_bool ( loc1 |> goDown |> goRight |> goRight |> goDown |> goRight =
+    LOC (LEAF "*",
+    HAND ([LEAF "c"],
+      HAND ([LEAF "+"; NODE [LEAF "a"; LEAF "*"; LEAF "b"]], TOP, []),
+      [LEAF "d"]))
+  );
+
+  print_bool (try (loc1 |> goUp |> ignore); false with NOMOVE _ -> true);
