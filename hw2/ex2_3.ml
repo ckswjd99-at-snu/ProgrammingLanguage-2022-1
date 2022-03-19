@@ -22,7 +22,7 @@ let rec diff ((polynomial, coefficient): ae * string) : ae =
   )
   | TIMES aeList -> (
     match aeList with
-    | [] -> raise InvalidArgument
+    | [] -> CONST 0
     | aeHead::aeTail -> SUM [
       TIMES ((diff (aeHead, coefficient))::aeTail) ;
       TIMES (aeHead::(diff ((TIMES aeTail), coefficient)::[]))
@@ -30,7 +30,7 @@ let rec diff ((polynomial, coefficient): ae * string) : ae =
   )
   | SUM aeList -> (
     match aeList with
-    | [] -> raise InvalidArgument
+    | [] -> CONST 0
     | aeHead::aeTail -> SUM [
       diff (aeHead, coefficient) ;
       diff ((SUM aeTail), coefficient)
