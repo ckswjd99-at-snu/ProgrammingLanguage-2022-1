@@ -1,0 +1,77 @@
+[Header]
+
+[Test]
+parenize (NODE (LEAF Korea,
+               (NODE (LEAF France,
+	             (NODE (LEAF Usa,
+		           (NODE (LEAF Brazil,
+			         (NODE (LEAF Japan,
+				       (NODE (LEAF Nigeria,
+				             (NODE (LEAF Cameroon,
+					           (NODE (LEAF Poland,
+						         (NODE (LEAF Portugal,
+							       (NODE (LEAF Italy,
+							             (NODE (LEAF Germany,
+								           (NODE (LEAF Norway,
+									         (NODE (LEAF Sweden, 
+										       (NODE (LEAF Argentina, LEAF England))))))))))))))))))))))))))))
+[Value]
+"(Korea (France (Usa (Brazil (Japan (Nigeria (Cameroon (Poland (Portugal (Italy (Germany (Norway (Sweden (Argentina England))))))))))))))"
+
+[Test]
+parenize (LEAF Korea)
+
+[Value]
+"Korea"
+
+[Test]
+parenize (NODE (LEAF Argentina, LEAF Poland))
+
+[Value]
+"(Argentina Poland)"
+
+[Test]
+parenize (NODE (NODE (LEAF Italy, LEAF Germany), LEAF France))
+[Value]
+"((Italy Germany) France)"
+
+[Test]
+parenize (NODE (LEAF Norway, (NODE (LEAF Sweden, LEAF Nigeria))))
+
+[Value]
+"(Norway (Sweden Nigeria))"
+
+
+[Test]
+parenize (NODE (LEAF Japan, (NODE (LEAF Argentina, (NODE (LEAF Usa, LEAF Italy))))))
+
+[Value]
+"(Japan (Argentina (Usa Italy)))"
+
+
+[Test]
+parenize (NODE (LEAF France, (NODE (LEAF Poland, LEAF Italy))))
+
+[Value]
+"(France (Poland Italy))"
+
+
+[Test]
+parenize (NODE (NODE (LEAF Italy, (NODE (LEAF Korea, LEAF Usa))), LEAF France))
+
+[Value]
+"((Italy (Korea Usa)) France)"
+
+
+[Test]
+parenize (NODE (NODE ((NODE (LEAF Brazil, LEAF Cameroon)), (NODE (LEAF Korea, LEAF Usa))), LEAF France))
+
+[Value]
+"(((Brazil Cameroon) (Korea Usa)) France)"
+
+
+[Test]
+parenize (NODE (LEAF France, LEAF Poland))
+
+[Value]
+"(France Poland)"

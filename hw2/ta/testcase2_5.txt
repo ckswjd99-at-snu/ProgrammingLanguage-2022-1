@@ -1,0 +1,94 @@
+[Header]
+
+let tr1 = NODE [LEAF "1"; LEAF "2"; LEAF "3"; LEAF "4"]
+
+let tr2 = NODE [LEAF "A"; LEAF "B"; LEAF "C"]
+
+let tr3 = NODE [tr1; LEAF "a"; tr2]
+
+let l1 = LOC(tr1, TOP)
+let l2 = LOC(tr2, TOP)
+let l3 = LOC(tr3, TOP)
+
+let ta_goLeft loc = match loc with
+    | LOC(t, TOP) -> raise (NOMOVE "left of top")
+    | LOC(t, HAND(l::left, up, right)) -> LOC(l, HAND(left, up, t::right))
+    | LOC(t, HAND([],up,right)) -> raise (NOMOVE "left of first")
+
+let (|>) g f = f g
+
+let current loc = match loc with | LOC (t, _) -> t
+
+[Test]
+(* test 1 *)
+l1 |> goDown |> current
+
+[Value]
+LEAF "1"
+
+
+[Test]
+(* test 2: *)
+l1 |> goDown |> goRight |> goRight |> current
+
+[Value]
+LEAF "3"
+
+[Test]
+(* test 3: goRight & exception *)
+l1 |> goDown |> ta_goLeft
+
+[Exception]
+NOMOVE _
+
+[Test]
+(* test 4: goUp *)
+l3 |> goDown |> goDown |> goUp |> current
+
+[Value]
+tr1
+
+[Test]
+(* test 5 *)
+l3 |> goDown |> goRight |> goRight |> goDown |> current
+
+[Value]
+LEAF "A"
+
+
+[Test]
+(* test 6 *)
+l3 |> goDown |> goRight |> goRight |> goDown |> goRight |> goRight |> goRight |> current
+
+[Exception]
+NOMOVE _
+
+
+[Test]
+(* test 7 *)
+l3 |> goDown |> goUp |> goUp |> current
+[Exception]
+NOMOVE _
+
+[Test]
+(* test 8 *)
+l3 |> goDown |> goRight |> goDown |> current
+
+[Exception]
+NOMOVE _
+
+
+[Test]
+(* test 9 *)
+l2 |> goDown |> goRight |> goRight |> ta_goLeft |> current
+
+[Value]
+LEAF "B"
+
+
+[Test]
+(* test 10 *)
+l3 |> goDown|> goDown|> goRight |> goRight |> goRight |> goUp |> goRight |> goRight |> goDown |> goRight |> ta_goLeft |> current
+
+[Value]
+LEAF "A"

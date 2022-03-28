@@ -1,0 +1,95 @@
+[Header]
+
+let (|>) g f = f g
+
+let l1 = [1]
+let l2 = [2]
+let l3 = [3]
+let l4 = [4]
+
+let empty = IntListQ.emptyQ
+let enQ v q = IntListQ.enQ (q, v)
+let deQ q = let _, rq = IntListQ.deQ q in rq
+let deQV q = let v, _ = IntListQ.deQ q in v
+
+[Test]
+IntListQ.deQ IntListQ.emptyQ
+
+[Exception]
+IntListQ.EMPTY_Q
+
+[Test]
+empty
+|> enQ l1
+|> deQV
+
+[Value]
+l1
+
+[Test]
+empty 
+|> enQ l1
+|> enQ l2
+|> deQ
+|> deQV
+
+[Value]
+l2
+
+[Test]
+empty
+|> enQ l1
+|> enQ l2
+|> deQ
+|> enQ l3
+|> enQ l4
+|> deQ
+|> deQV
+
+[Value]
+l3
+
+[Test]
+empty
+|> enQ l1
+|> deQ
+|> enQ l2
+|> enQ l3
+|> deQ
+|> enQ l4
+|> deQ
+|> deQV
+
+[Value]
+l4
+
+
+[Test]
+empty |> enQ l1 |> enQ l2 |> enQ l3 |> enQ l4 |> deQ |> deQV
+
+[Value]
+l2
+
+[Test]
+empty |> enQ l1 |> enQ l2 |> enQ l3 |> enQ l4 |> deQ |> enQ l1 |> deQ |> enQ l2 |> deQ |> deQV
+
+[Value]
+l4
+
+[Test]
+empty |> enQ l1 |> enQ l3 |> deQ |> enQ l4 |> deQ |> deQV
+
+[Value]
+l4
+
+[Test]
+empty |> enQ l4 |> enQ l2 |> deQ |> deQ |> deQV
+
+[Exception]
+IntListQ.EMPTY_Q
+
+[Test]
+IntListQ.emptyQ |> enQ l1 |> enQ l2 |> deQV
+
+[Value]
+l1
