@@ -277,7 +277,11 @@ struct
     | WHILE (exp1, exp2) ->
       (
         match (eval mem env exp1) with
-        | (Bool true, mem') -> eval mem' env exp2
+        | (Bool true, mem') -> (
+          let (v1, mem1) = eval mem' env exp2 in
+          let (v2, mem2) = eval mem1 env (WHILE (exp1, exp2)) in
+          (v2, mem2)
+        )
         | (Bool false, mem') -> (Unit, mem')
         | _ -> raise (Error "TypeError : condition for WHILE not Bool")
       )
