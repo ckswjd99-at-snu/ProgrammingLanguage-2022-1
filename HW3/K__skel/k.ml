@@ -193,6 +193,95 @@ struct
       let (v, mem') = eval mem env e in
       let l = lookup_env_loc env x in
       (v, Mem.store mem' l v)
+    | NUM integer -> 
+      (Num integer, mem)
+    | TRUE ->
+      (Bool true, mem)
+    | FALSE ->
+      (Bool false, mem)
+    | UNIT ->
+      (Unit, mem)
+    | VAR x ->
+      let l = lookup_env_loc env x in
+      let v = Mem.load mem l in
+      (v, mem)
+    | ADD (exp1, exp2) ->
+      let (v1, mem') = eval mem env exp1 in
+      let (v2, mem'') = eval mem' env exp2 in
+      (
+        match (v1, v2) with
+        | (Num num1, Num num2) -> (Num (num1 + num2), mem'')
+        | _ -> raise (Error "TypeError : operands for ADD not Num")
+      )
+    | SUB (exp1, exp2) ->
+      let (v1, mem') = eval mem env exp1 in
+      let (v2, mem'') = eval mem' env exp2 in
+      (
+        match (v1, v2) with
+        | (Num num1, Num num2) -> (Num (num1 - num2), mem'')
+        | _ -> raise (Error "TypeError : operands for SUB not Num")
+      )
+    | MUL (exp1, exp2) ->
+      let (v1, mem') = eval mem env exp1 in
+      let (v2, mem'') = eval mem' env exp2 in
+      (
+        match (v1, v2) with
+        | (Num num1, Num num2) -> (Num (num1 * num2), mem'')
+        | _ -> raise (Error "TypeError : operands for MUL not Num")
+      )
+    | DIV (exp1, exp2) ->
+      let (v1, mem') = eval mem env exp1 in
+      let (v2, mem'') = eval mem' env exp2 in
+      (
+        match (v1, v2) with
+        | (Num num1, Num num2) -> (Num (num1 / num2), mem'')
+        | _ -> raise (Error "TypeError : operands for DIV not Num")
+      )
+    | EQUAL (exp1, exp2) ->
+      let (v1, mem') = eval mem env exp1 in
+      let (v2, mem'') = eval mem' env exp2 in
+      (
+        match v1, v2 with
+        | (Num num1, Num num2) -> (Bool (num1 = num2), mem'')
+        | (Bool bool1, Bool bool2) -> (Bool (bool1 = bool2), mem'')
+        | (Unit, Unit) -> (Bool true, mem'')
+        | _ -> (Bool false, mem'')
+      )
+    | LESS (exp1, exp2) ->
+      let (v1, mem') = eval mem env exp1 in
+      let (v2, mem'') = eval mem' env exp2 in
+      (
+        match v1, v2 with
+        | (Num num1, Num num2) -> (Bool (num1 < num2), mem'')
+        | _ -> raise (Error "TypeError : operands for LESS not Num")
+      )
+    | NOT e ->
+      let (v, mem') = eval mem env e in
+      (
+        match v with
+        | Bool b -> (Bool (not b), mem')
+        | _ -> raise (Error "TypeError : operand for NOT not Bool")
+      )
+    | SEQ (exp1, exp2) ->
+      let (v1, mem') = eval mem env exp1 in
+      let (v2, mem'') = eval mem' env exp2 in
+      (v2, mem'')
+    | IF (exp, exp1, exp2) ->
+      let (v, mem') = eval mem env exp in
+      (
+        match v with
+        | Bool true -> eval mem' env exp1
+        | Bool false -> eval mem' env exp2
+        | _ -> raise (Error "TypeError : condition for IF not Bool")
+      )
+    | WHILE (exp1, exp2) ->
+      (
+        match (eval mem env exp1) with
+        | (Bool true, mem') -> eval mem' env exp2
+        | (Bool false, mem') -> (Unit, mem')
+        | _ -> raise (Error "TypeError : condition for WHILE not Bool")
+      )
+
     | _ -> failwith "Unimplemented" (* TODO : Implement rest of the cases *)
 
   let run (mem, env, pgm) = 
