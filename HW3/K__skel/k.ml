@@ -286,8 +286,6 @@ struct
         | _ -> raise (Error "TypeError : condition for WHILE not Bool")
       )
 
-    | _ -> failwith "Unimplemented" (* TODO : Implement rest of the cases *)
-
   let run (mem, env, pgm) = 
     let (v, _ ) = eval mem env pgm in
     v
