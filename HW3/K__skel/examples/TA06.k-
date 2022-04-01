@@ -1,1 +1,0 @@
-write (( {fst := true, snd := 5 } ).snd)

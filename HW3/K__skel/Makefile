@@ -32,3 +32,6 @@ lexer.ml: lexer.mll parser.cmo
 
 clean:
 	rm -f *.cmx *.cmi parser.mli parser.ml lexer.ml run *.o *.cmo
+
+test:
+	./test.sh

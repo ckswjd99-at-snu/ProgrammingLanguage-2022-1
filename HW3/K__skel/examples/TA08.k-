@@ -1,2 +1,0 @@
-let proc f (x, y, z) = (x + y) * z in
-write (f (2, 3, 5))
