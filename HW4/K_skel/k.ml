@@ -229,23 +229,28 @@ struct
       let l = lookup_env_loc env identifier in
       let v = Mem.load mem l in
       (v, mem)
-    | RECORD (keyValList: (id * expr) list) -> 
-      match keyValList with
+    | RECORD (keyValList: (id * exp) list) -> 
+    (
+      match keyValList with 
       | [] -> (Unit, mem)
       | _ -> (
-        let
-          rec makeRecord (record, keyValList, memory) =
-            match keyValList with
-            | [] -> (record, memory)
-            | (key, expr)::keyValTail -> (
-              let (v, memory') = eval memory env expr in
-              let record' identifier = if identifier = key then v else (record identifier) in
-              (record'', memory'') = makeRecord (record', keyValTail, memory')
-            )
+        let rec makeRecord (record, keyValList, memory) = (
+          match keyValList with
+          | [] -> (record, memory)
+          | (key, expr)::keyValTail -> (
+            let (v, memory') = eval memory env expr in
+            let (l, memory'') = Mem.alloc memory' in
+            let memory''' = Mem.store memory'' l v in
+            let record' identifier = if identifier = key then l else (record identifier) in
+            let (record'', memory'''') = makeRecord (record', keyValTail, memory''') in
+            (record'', memory'''')
+          )
+        )
         in
-        let (record, mem') = makeRecord(fun x -> raise (Error "Unbound"), keyValList, mem) in
+        let (record, mem') = makeRecord ((fun x -> (raise (Error "Unbound"))), keyValList, mem) in
         (Record record, mem')
       )
+    )
     | ADD (expr1, expr2) ->
       let (num1, mem') = eval mem env expr1 in
       let (num2, mem'') = eval mem' env expr2 in
@@ -262,7 +267,7 @@ struct
       let (num1, mem') = eval mem env expr1 in
       let (num2, mem'') = eval mem' env expr2 in
       (Num ((value_int num1) / (value_int num2)), mem'')
-    | EQUAL (expr1, expr2) ->
+    | EQUAL (expr1, expr2) -> (
       let (v1, mem') = eval mem env expr1 in
       let (v2, mem'') = eval mem' env expr2 in
       match v1, v2 with
@@ -270,6 +275,7 @@ struct
       | (Bool b1, Bool b2) -> (Bool (b1 = b2), mem'')
       | (Unit, Unit) -> (Bool true, mem'')
       | _ -> (Bool false, mem'')
+    )
     | LESS (expr1, expr2) ->
       let (v1, mem') = eval mem env expr1 in
       let (v2, mem'') = eval mem' env expr2 in
@@ -280,21 +286,73 @@ struct
       let (v, mem') = eval mem env expr in
       let b = value_bool v in
       (Bool (not b), mem')
-    | ASSIGN (identifier, expr) ->
-      let (v, mem') = eval mem env expr in
-      let l = lookup_env_loc env identifier in
-      (v, Mem.store mem' l v)
     | ASSIGNF (expr1, identifier, expr2) ->
-      let (v1, mem') = eval mem env expr1 in
-      let (v2, mem'') = eval mem' env expr2 in
-      let record = value_record v1 in
-    | FEILD (expr, identifier) ->
+      let (r, mem') = eval mem env expr1 in
+      let (v, mem'') = eval mem' env expr2 in
+      let record = value_record r in
+      let l = record identifier in
+      (v, Mem.store mem'' l v)
+    | FIELD (expr, identifier) ->
       let (v, mem') = eval mem env expr in
       let record = value_record v in
-      (record identifier, mem')
+      (Mem.load mem' (record identifier), mem')
+    | SEQ (expr1, expr2) ->
+      let (v1, mem') = eval mem env expr1 in
+      let (v2, mem'') = eval mem' env expr2 in
+      (v2, mem'')
+    | IF (exp, exp1, exp2) ->
+      let (v, mem') = eval mem env exp in
+      (
+        match v with
+        | Bool true -> eval mem' env exp1
+        | Bool false -> eval mem' env exp2
+        | _ -> raise (Error "TypeError : condition for IF not Bool")
+      )
+    | WHILE (exp1, exp2) ->
+      (
+        match (eval mem env exp1) with
+        | (Bool true, mem') -> (
+          let (v1, mem1) = eval mem' env exp2 in
+          let (v2, mem2) = eval mem1 env (WHILE (exp1, exp2)) in
+          (v2, mem2)
+        )
+        | (Bool false, mem') -> (Unit, mem')
+        | _ -> raise (Error "TypeError : condition for WHILE not Bool")
+      )
+    | LETF (funcId, argIdList, expr1, expr2) ->
+      let envWithFunc = Env.bind env funcId (Proc (argIdList, expr1, env)) in
+      let (v, mem') = eval mem envWithFunc expr2 in
+      (v, mem')
+    | CALLV (identifier, exprList) ->
+      let rec executeParams (_mem, _env, _exprList, _argIdList) = 
+        match _exprList, _argIdList with
+        | ([], []) -> (_mem, _env)
+        | (exprHead::exprTail, argHead::argTail) -> (
+          let (v, mem') = eval _mem _env exprHead in
+          let (l, mem'') = Mem.alloc _mem in
+          let mem''' = Mem.store mem'' l v in
+          let newEnv = Env.bind _env argHead (Addr l) in
+          executeParams (mem''', newEnv, exprTail, argTail)
+        )
+        | _ -> raise (Error "CALLV argument not match")
+      in
+      let (argIdList, bodyExpr, procEnv) = lookup_env_proc env identifier in
+      let (mem', env') = executeParams (mem, procEnv, exprList, argIdList) in
+      eval mem' env' bodyExpr
 
-
-    | _ -> failwith "Unimplemented" (* TODO : Implement rest of the cases *)
+    | CALLR (identifier, idList) ->
+      let rec setParamEnv (_mem, _env, _locList, _argIdList) = 
+        match _locList, _argIdList with
+        | ([], []) -> _env
+        | (locHead::locTail, argHead::argTail) -> (
+          let env' = Env.bind _env argHead (Addr (lookup_env_loc _env locHead)) in
+          setParamEnv (_mem, env', locTail, argTail)
+        )
+        | _ -> raise (Error "CALLR argument not match")
+      in
+      let (argIdList, bodyExpr, procEnv) = lookup_env_proc env identifier in
+      let env' = setParamEnv (mem, procEnv, idList, argIdList) in
+      eval mem env' bodyExpr
 
   let run (mem, env, pgm) = 
     let (v, _ ) = eval mem env pgm in
