@@ -193,14 +193,14 @@ struct
       (match Env.lookup e x with
       | Addr l -> l
       | Proc _ -> raise (Error "TypeError : not addr")) 
-    with Env.Not_bound -> raise (Error "Unbound loc")
+    with Env.Not_bound -> raise (Error "Unbound")
 
   let lookup_env_proc e f =
     try
       (match Env.lookup e f with
       | Addr _ -> raise (Error "TypeError : not proc") 
       | Proc (id_list, exp, env) -> (id_list, exp, env))
-    with Env.Not_bound -> raise (Error "Unbound proc")
+    with Env.Not_bound -> raise (Error "Unbound")
 
   let rec eval mem env e =
     match e with
@@ -321,10 +321,8 @@ struct
       )
     | LETF (funcId, argIdList, expr1, expr2) ->
       let envWithFunc = Env.bind env funcId (Proc (argIdList, expr1, env)) in
-      let _ = Printf.printf "Bind func: %s\n" funcId in
       eval mem envWithFunc expr2
     | CALLV (identifier, exprList) ->
-      let _ = Printf.printf "Callv func: %s\n" identifier in
       let rec executeParams (_mem, _env, _exprList) = 
         match _exprList with
         | [] -> ([], _mem)
@@ -351,7 +349,7 @@ struct
           let env' = Env.bind _env argHead (Addr locHead) in
           setParamsEnv (env', locTail, argTail)
         )
-        | _ -> raise (Error "CALLV argument not match")
+        | _ -> raise (Error "InvalidArg")
       in
       let (valueList, memN) = executeParams (mem, env, exprList) in
       let (locList, memN') = storeParams (memN, valueList) in
@@ -369,7 +367,7 @@ struct
           let env' = Env.bind _env' argHead (Addr l) in
           setLocEnv (env', _env, idTail, argTail)
         )
-        | _ -> raise (Error "CALLR argument not match")
+        | _ -> raise (Error "InvalidArg")
       in
       let (argIdList, bodyExpr, procEnv) = lookup_env_proc env identifier in
       let procEnv' = setLocEnv (procEnv, env, idList, argIdList) in

@@ -29,9 +29,11 @@ setup.log
 _opam/
 
 HW3/K__skel/lexer.ml
-
 HW3/K__skel/parser.ml
-
 HW3/K__skel/parser.mli
-
 HW3/K__skel/run
+
+HW4/K_skel/lexer.ml
+HW4/K_skel/parser.ml
+HW4/K_skel/parser.mli
+HW4/K_skel/run
