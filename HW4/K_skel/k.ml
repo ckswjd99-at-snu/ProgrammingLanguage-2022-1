@@ -359,18 +359,19 @@ struct
       eval memN' env' bodyExpr
 
     | CALLR (identifier, idList) ->
-      let rec setParamEnv (_mem, _env, _locList, _argIdList) = 
-        match _locList, _argIdList with
-        | ([], []) -> _env
-        | (locHead::locTail, argHead::argTail) -> (
-          let env' = Env.bind _env argHead (Addr (lookup_env_loc _env locHead)) in
-          setParamEnv (_mem, env', locTail, argTail)
+      let rec setLocEnv (_env', _env, _idList, _argIdList) = 
+        match _idList, _argIdList with
+        | ([], []) -> _env'
+        | (idHead::idTail, argHead::argTail) -> (
+          let l = lookup_env_loc _env idHead in
+          let env' = Env.bind _env' argHead (Addr l) in
+          setLocEnv (env', _env, idTail, argTail)
         )
         | _ -> raise (Error "CALLR argument not match")
       in
       let (argIdList, bodyExpr, procEnv) = lookup_env_proc env identifier in
-      let env' = setParamEnv (mem, procEnv, idList, argIdList) in
-      eval mem env' bodyExpr
+      let procEnv' = setLocEnv (procEnv, env, idList, argIdList) in
+      eval mem procEnv' bodyExpr
 
   let run (mem, env, pgm) = 
     let (v, _ ) = eval mem env pgm in
