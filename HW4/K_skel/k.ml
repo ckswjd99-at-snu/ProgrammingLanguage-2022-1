@@ -321,9 +321,10 @@ struct
       )
     | LETF (funcId, argIdList, expr1, expr2) ->
       let envWithFunc = Env.bind env funcId (Proc (argIdList, expr1, env)) in
-      let (v, mem') = eval mem envWithFunc expr2 in
-      (v, mem')
+      let _ = Printf.printf "Bind func: %s\n" funcId in
+      eval mem envWithFunc expr2
     | CALLV (identifier, exprList) ->
+      let _ = Printf.printf "Callv func: %s\n" identifier in
       let rec executeParams (_mem, _env, _exprList) = 
         match _exprList with
         | [] -> ([], _mem)
@@ -356,7 +357,8 @@ struct
       let (locList, memN') = storeParams (memN, valueList) in
       let (argIdList, bodyExpr, procEnv) = lookup_env_proc env identifier in
       let env' = setParamsEnv (procEnv, locList, argIdList) in
-      eval memN' env' bodyExpr
+      let env'' = Env.bind env' identifier (Proc (argIdList, bodyExpr, procEnv)) in
+      eval memN' env'' bodyExpr
 
     | CALLR (identifier, idList) ->
       let rec setLocEnv (_env', _env, _idList, _argIdList) = 
@@ -371,7 +373,8 @@ struct
       in
       let (argIdList, bodyExpr, procEnv) = lookup_env_proc env identifier in
       let procEnv' = setLocEnv (procEnv, env, idList, argIdList) in
-      eval mem procEnv' bodyExpr
+      let procEnv'' = Env.bind procEnv' identifier (Proc (argIdList, bodyExpr, procEnv)) in
+      eval mem procEnv'' bodyExpr
 
   let run (mem, env, pgm) = 
     let (v, _ ) = eval mem env pgm in
