@@ -193,14 +193,14 @@ struct
       (match Env.lookup e x with
       | Addr l -> l
       | Proc _ -> raise (Error "TypeError : not addr")) 
-    with Env.Not_bound -> raise (Error "Unbound")
+    with Env.Not_bound -> raise (Error "Unbound loc")
 
   let lookup_env_proc e f =
     try
       (match Env.lookup e f with
       | Addr _ -> raise (Error "TypeError : not proc") 
       | Proc (id_list, exp, env) -> (id_list, exp, env))
-    with Env.Not_bound -> raise (Error "Unbound")
+    with Env.Not_bound -> raise (Error "Unbound proc")
 
   let rec eval mem env e =
     match e with
@@ -247,7 +247,7 @@ struct
           )
         )
         in
-        let (record, mem') = makeRecord ((fun x -> (raise (Error "Unbound"))), keyValList, mem) in
+        let (record, mem') = makeRecord ((fun x -> (raise (Error "record no key"))), keyValList, mem) in
         (Record record, mem')
       )
     )
@@ -324,21 +324,39 @@ struct
       let (v, mem') = eval mem envWithFunc expr2 in
       (v, mem')
     | CALLV (identifier, exprList) ->
-      let rec executeParams (_mem, _env, _exprList, _argIdList) = 
-        match _exprList, _argIdList with
-        | ([], []) -> (_mem, _env)
-        | (exprHead::exprTail, argHead::argTail) -> (
+      let rec executeParams (_mem, _env, _exprList) = 
+        match _exprList with
+        | [] -> ([], _mem)
+        | exprHead::exprTail -> (
           let (v, mem') = eval _mem _env exprHead in
-          let (l, mem'') = Mem.alloc _mem in
-          let mem''' = Mem.store mem'' l v in
-          let newEnv = Env.bind _env argHead (Addr l) in
-          executeParams (mem''', newEnv, exprTail, argTail)
+          let (vList, mem'') = executeParams (mem', _env, exprTail) in
+          (v::vList, mem'')
+        )
+      in
+      let rec storeParams (_mem, _valueList) = 
+        match _valueList with
+        | [] -> ([], _mem)
+        | valueHead::valueTail -> (
+          let (l, mem') = Mem.alloc _mem in
+          let mem'' = Mem.store mem' l valueHead in
+          let (locList, mem''') = storeParams (mem'', valueTail) in
+          (l::locList, mem''')
+        )
+      in
+      let rec setParamsEnv (_env, _locList, _argIdList) = 
+        match _locList, _argIdList with
+        | ([], []) -> _env
+        | (locHead::locTail, argHead::argTail) -> (
+          let env' = Env.bind _env argHead (Addr locHead) in
+          setParamsEnv (env', locTail, argTail)
         )
         | _ -> raise (Error "CALLV argument not match")
       in
+      let (valueList, memN) = executeParams (mem, env, exprList) in
+      let (locList, memN') = storeParams (memN, valueList) in
       let (argIdList, bodyExpr, procEnv) = lookup_env_proc env identifier in
-      let (mem', env') = executeParams (mem, procEnv, exprList, argIdList) in
-      eval mem' env' bodyExpr
+      let env' = setParamsEnv (procEnv, locList, argIdList) in
+      eval memN' env' bodyExpr
 
     | CALLR (identifier, idList) ->
       let rec setParamEnv (_mem, _env, _locList, _argIdList) = 
