@@ -53,24 +53,4 @@ let proc bft (t) =
     qPop<searchQ>
   )
 in
-
-let testTree := 
-  makeTree(1, 
-    makeTree(2, 
-      makeTree(5, 
-        leaf(9), 
-        leaf(10)
-      ),
-      leaf(6)
-    ), 
-    makeTree(4, 
-      makeTree(7, 
-        leaf(11), 
-        leaf(12)
-      ), 
-      leaf(8)
-    )
-  ) 
-in
-dft(testTree);
-bft(testTree)
+2019
