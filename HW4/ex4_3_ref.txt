@@ -1,0 +1,59 @@
+(*
+ * Queue
+ *)
+let proc push(queue, entity) =
+  if queue = () then
+    queue := { task := entity, next := () };
+    ()
+  else
+    let next := queue.next in
+    push<next, entity>;
+    queue.next := next
+in
+
+let proc pop(queue) =
+  let ret := queue.task in
+  queue := queue.next;
+  ret
+in
+
+(*
+ * Main program
+ *)
+let proc makeTree(value, left, right) =
+  { value := value, left := left, right := right }
+in
+
+let proc leaf(value)            = makeTree(value, (), ()) in
+let proc makeLtree(value, tree) = makeTree(value, tree, ()) in
+let proc makeRtree(value, tree) = makeTree(value, (), tree) in
+let proc isEmpty(tree) = tree = () in
+let proc lTree(tree)   = tree.left in
+let proc rTree(tree)   = tree.right in
+let proc nodeVal(tree) = tree.value in
+
+let proc dft(tree) =
+  if isEmpty(tree) then
+    ()
+  else (
+    write nodeVal(tree);
+    dft(lTree(tree));
+    dft(rTree(tree))
+  )
+in
+let proc bft(tree) =
+  let q := () in
+  push<q, tree>;
+  while not (q = ()) do
+    let node := pop<q> in
+    if node = () then
+      ()
+    else (
+      write nodeVal(node);
+      let left  := lTree(node) in
+      let right := rTree(node) in
+      push<q, left>;
+      push<q, right>
+    )
+in
+2015

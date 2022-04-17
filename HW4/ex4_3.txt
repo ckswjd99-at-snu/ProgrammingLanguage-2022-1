@@ -1,0 +1,76 @@
+let proc leaf (i) = { value := i, left := (), right := () } in
+let proc makeLtree (i, t) = { value := i, left := t, right := () } in
+let proc makeRtree (i, t) = { value := i, left := (), right := t } in
+let proc makeTree (i, tl, tr) = { value := i, left := tl, right := tr } in
+
+let proc isEmpty (t) = if t = () then true else false in
+let proc rTree (t) = t.right in
+let proc lTree (t) = t.left in
+let proc nodeVal (t) = t.value in
+
+let proc dft (t) =
+  if (isEmpty (t))
+  then ()
+  else (
+    write (nodeVal (t)) ;
+    dft (lTree (t));
+    dft (rTree (t))
+  )
+in
+
+let proc qGen (i) = { value := i, next := ()} in
+let proc qPush (q, i) =
+  if q = () 
+  then (
+    q := { value := i, next := ()}; ()
+  )
+  else (
+    let next := q.next in
+    qPush <next, i>;
+    q.next := next
+  )
+in
+let proc qPop (q) =
+  if q = () 
+  then ()
+  else (
+    let value := q.value in
+    let next := q.next in
+    q := q.next;
+    value
+  )
+in
+let proc qEmpty (q) = (q = ()) in
+
+let proc bft (t) =
+  let searchQ := qGen(t) in
+  while (not (qEmpty (searchQ))) do (
+    write nodeVal(searchQ.value);
+    if (not isEmpty(lTree(searchQ.value)))
+    then qPush(searchQ, lTree(searchQ.value)) else () ;
+    if (not isEmpty(rTree(searchQ.value)))
+    then qPush(searchQ, rTree(searchQ.value)) else () ;
+    qPop<searchQ>
+  )
+in
+
+let testTree := 
+  makeTree(1, 
+    makeTree(2, 
+      makeTree(5, 
+        leaf(9), 
+        leaf(10)
+      ),
+      leaf(6)
+    ), 
+    makeTree(4, 
+      makeTree(7, 
+        leaf(11), 
+        leaf(12)
+      ), 
+      leaf(8)
+    )
+  ) 
+in
+dft(testTree);
+bft(testTree)
