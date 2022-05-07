@@ -35,10 +35,7 @@ sig
   exception GC_Failure
   exception Error of string
 
-  val debug_mode : bool ref
   val gc_mode : bool ref
-
-  val command_to_str : string -> command -> string
   val run : command -> unit
 
 end
@@ -213,6 +210,70 @@ struct
       (* TODO : Add the code that marks the reachable locations.
        * let _ = ... 
        *)
+      let rec extractFromValue value = (
+        match value with 
+        | L (base, _) -> base::[]
+        | R record -> (
+          let locations = List.map (fun (a, b) -> b) record in
+          List.map (fun x -> fst x) locations
+        )
+        | _ -> []
+      ) in
+      let rec extractFromCommandList commandList = 
+        List.fold_left (fun a b -> a @ b) [] (
+          List.map (
+            function 
+            | PUSH obj -> (
+              match obj with
+              | Val value -> extractFromValue value
+              | Fn (_, commandList) -> extractFromCommandList commandList
+              | _ -> []
+            )
+            | JTR (commandList1, commandList2) -> extractFromCommandList commandList1 @ extractFromCommandList commandList2
+            | _ -> []
+          )
+          commandList
+        )
+      in
+
+      let rec extractFromExpr expr = 
+        match expr with 
+        | Loc (base, _) -> base::[]
+        | Proc proc -> extractFromProc proc
+      and extractFromEnv env = 
+        List.fold_left (fun a b -> a @ b) [] (List.map (fun (_, expr) -> extractFromExpr expr) env)
+      and extractFromProc (_, command, env) = 
+        extractFromCommandList command @ extractFromEnv env
+      in
+      
+      let checkStack stack = 
+        List.fold_left (fun a b -> a @ b) [] (List.map (
+          function
+          | V value -> extractFromValue value
+          | P proc -> extractFromProc proc
+          | M (_, expr) -> extractFromExpr expr
+        ) stack) 
+      in
+      let checkContinue continuation = 
+        List.fold_left (fun a b -> a @ b) [] (List.map (fun (c, e) -> extractFromCommandList c @ extractFromEnv e) continuation) 
+      in
+
+      let locs = 
+        let rawLocs = (checkStack s @ extractFromEnv e @ extractFromCommandList c @ checkContinue k) in
+        let rec expand locations =
+          let rawExpanded = 
+            List.sort_uniq compare (
+              locations @ 
+              List.fold_left (fun a b -> a @ b) [] (List.map (fun (_, v) -> extractFromValue v) (List.filter (fun ((b, _), v) -> List.exists (fun x -> x = b) locations) m))
+            )
+          in
+          let expanded = List.sort_uniq compare rawExpanded in
+          if expanded = locations then locations else expand expanded
+        in
+        expand rawLocs
+      in
+      let _ = reachable_locs := List.filter (fun (b, _) -> List.exists (fun x -> x = b) locs) (List.map (fun (base, _) -> base) m) in
+
       let new_m = List.filter (fun (l, _) -> List.mem l !reachable_locs) m in
       if List.length new_m < mem_limit then
         let _ = loc_id := !loc_id + 1 in

@@ -1,3 +1,5 @@
+MODULER=ocamlopt
+
 all: run
 
 run: lexer.cmo parser.cmo sm5.cmo k.cmo translate.cmo pp.cmo main.cmo
@@ -38,3 +40,8 @@ lexer.ml: lexer.mll parser.cmo
 
 clean:
 	rm -f *.cmx *.cmi parser.mli parser.ml lexer.ml run *.o *.cmo
+
+test:
+	@$(MODULER) -c sm5.ml
+	@$(MODULER) sm5.cmx gc_test.ml -o gc_test.out
+	./gc_test.out
