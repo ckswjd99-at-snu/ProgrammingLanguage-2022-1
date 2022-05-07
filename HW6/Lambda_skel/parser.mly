@@ -6,12 +6,12 @@
  * kypark@ropas.snu.ac.kr
  */
   
-
 %{
 exception EmptyBinding
 exception ParsingError
 %}
 
+%token APP
 %token LAMBDA DOT
 %token <string> ID
 %token IN

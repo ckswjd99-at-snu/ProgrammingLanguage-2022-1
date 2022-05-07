@@ -9,8 +9,8 @@
  open Parser
  exception Eof
  exception LexicalError
- let verbose1 s =  (* (print_string s; print_newline(); s) *) s
- let verbose2 s =  (* (print_string s; print_newline()) *) ()
+ let verbose1 s =  (*(print_string s; print_newline();*) s
+ let verbose2 s =   (*(print_string s; print_newline()) *) ()
  let comment_depth = ref 0
  let keyword_tbl = Hashtbl.create 31
  let _ = List.iter (fun (keyword, tok) -> Hashtbl.add keyword_tbl keyword tok)
@@ -20,13 +20,15 @@
 } 
 
 let blank = [' ' '\n' '\t' '\r']+
-let id = ['a'-'z' 'A'-'Z']['a'-'z' 'A'-'Z' '\'' '0'-'9' '_']*
+let id = ['a'-'z' 'A'-'Z']['\'']*
 
 rule start =
  parse blank { start lexbuf }
      | "(*" { comment_depth :=1;
               comment lexbuf;
               start lexbuf }
+     | "let" {verbose2 "let"; LET}
+     | "in" {verbose2 "in"; IN}
      | id { let id = verbose1 (Lexing.lexeme lexbuf)
             in try Hashtbl.find keyword_tbl id
                with _ -> ID id

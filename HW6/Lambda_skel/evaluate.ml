@@ -49,7 +49,37 @@ module Evaluator =
     )
      exp sub
   
+  module Pp =
+    struct
+      let rec pp exp =
+      match exp with
+        Var s -> print_string s
+      | Lam (s, e) -> print_string "\\"; print_string (s^"."); pp e; print_string ""
+      | App (e1, e2) -> print_string "("; pp e1; print_string ") ("; pp e2; print_string ")"
+    end
+
   let reduce : lexp -> lexp
-	= fun exp -> raise (Error "not implemented")
+	= fun exp -> (
+    let rec reducer (lexpr : lexp) : lexp = (
+      match lexpr with
+      | Var x -> Var x
+      | Lam (x, e) -> Lam (x, reducer e)
+      | App (Lam (x, e1), e2) -> subst ([(x, e2)], e1)
+      | App (App (e1, e2), e3) -> (
+        let tmp_lexp = App(e1, e2) in
+				let reduced_lexp = reducer (tmp_lexp) in
+				if reduced_lexp = tmp_lexp 
+				then App(tmp_lexp, reducer e3)
+				else App(reduced_lexp, e3)
+      )
+      | App (e1, e2) -> App (reducer e1, reducer e2)
+    ) in
+    let rec reduce_recursive lexpr = (
+      let reduced = reducer lexpr in
+      if lexpr = reduced then lexpr else reduce_recursive reduced
+    ) in
+
+    reduce_recursive exp
+  )
 
   end

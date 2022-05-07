@@ -37,3 +37,9 @@ HW4/K_skel/lexer.ml
 HW4/K_skel/parser.ml
 HW4/K_skel/parser.mli
 HW4/K_skel/run
+
+HW6/Lambda_skel/parser.mli
+HW6/Lambda_skel/parser.output
+
+
+.vscode/
