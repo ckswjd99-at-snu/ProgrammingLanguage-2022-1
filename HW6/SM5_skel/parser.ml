@@ -539,3 +539,6 @@ let yytables =
 let program (lexfun : Lexing.lexbuf -> token) (lexbuf : Lexing.lexbuf) =
    (Parsing.yyparse yytables 1 lexfun lexbuf : K.K.exp)
 ;;
+# 81 "parser.mly"
+
+# 545 "parser.ml"
