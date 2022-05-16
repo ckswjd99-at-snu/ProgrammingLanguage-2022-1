@@ -35,7 +35,10 @@ sig
   exception GC_Failure
   exception Error of string
 
+  val debug_mode : bool ref
   val gc_mode : bool ref
+
+  val command_to_str : string -> command -> string
   val run : command -> unit
 
 end
@@ -262,9 +265,11 @@ struct
         let rawLocs = (checkStack s @ extractFromEnv e @ extractFromCommandList c @ checkContinue k) in
         let rec expand locations =
           let rawExpanded = 
-            List.sort_uniq compare (
-              locations @ 
-              List.fold_left (fun a b -> a @ b) [] (List.map (fun (_, v) -> extractFromValue v) (List.filter (fun ((b, _), v) -> List.exists (fun x -> x = b) locations) m))
+            locations @ 
+            List.fold_left (fun a b -> a @ b) [] (
+              List.map 
+              (fun (_, v) -> extractFromValue v)
+              (List.filter (fun ((b, _), v) -> List.exists (fun x -> x = b) locations) m)
             )
           in
           let expanded = List.sort_uniq compare rawExpanded in

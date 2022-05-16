@@ -27,24 +27,34 @@ module Translator = struct
     | K.SEQ (e1, e2) -> trans e1 @ [Sm5.POP] @ trans e2
     | K.IF (e1, e2, e3) -> trans e1 @ [Sm5.JTR (trans e2, trans e3)]
     | K.WHILE (e1, e2) -> (
-      trans (K.LETF("_whileStart", "_whileArg", K.IF(e1, K.SEQ(e2, K.CALLV("_whileStart", K.NUM 1)), K.UNIT), K.CALLV("_whileStart", K.NUM 1)))
+      [Sm5.PUSH (
+        Sm5.Fn (
+          "#whileArg", 
+          [Sm5.BIND "#whileStart"] @ 
+          trans (K.IF(
+            e1, K.SEQ(e2, K.CALLV("#whileStart", K.NUM 1)), K.UNIT
+          ))
+        )
+      )] @ 
+      [Sm5.BIND "#whileStart"] @
+      (trans (K.CALLV("#whileStart", K.NUM 1))) @ [Sm5.UNBIND; Sm5.POP]
     )
     | K.FOR (id, e1, e2, e3) -> (
+      trans e1 @ [Sm5.MALLOC; Sm5.BIND "#forStart"; Sm5.PUSH (Sm5.Id "#forStart"); Sm5.STORE] @
+      trans e2 @ [Sm5.MALLOC; Sm5.BIND "#forEnd"; Sm5.PUSH (Sm5.Id "#forEnd"); Sm5.STORE] @
       trans (
-        K.LETV("#forStart", e1,
-          K.LETV("#forEnd", e2, 
-            K.LETF("#forFunction", "#forIndex", 
-              K.IF(K.LESS(K.VAR "#forEnd", K.VAR "#forIndex"),
-                K.UNIT,
-                K.SEQ(K.ASSIGN(id, K.VAR "#forIndex"),
-                  K.SEQ(e3, K.CALLV("#forFunction", K.ADD(K.NUM 1, K.VAR "#forIndex")))
-                )
-              ),
-              K.CALLV("#forFunction", K.VAR "#forStart")
+        K.LETF("#forFunction", "#forIndex", 
+          K.IF(K.LESS(K.VAR "#forEnd", K.VAR "#forIndex"),
+            K.UNIT,
+            K.SEQ(K.ASSIGN(id, K.VAR "#forIndex"),
+              K.SEQ(e3, K.CALLV("#forFunction", K.ADD(K.NUM 1, K.VAR "#forIndex")))
             )
-          )
+          ),
+          K.CALLV("#forFunction", K.VAR "#forStart")
         )
-      )
+      ) @ 
+      [Sm5.UNBIND; Sm5.POP] @
+      [Sm5.UNBIND; Sm5.POP]
     )
 
     | K.LETV (x, e1, e2) ->
@@ -59,6 +69,7 @@ module Translator = struct
       [Sm5.PUSH (Sm5.Id id)] @
       trans expr @ [Sm5.MALLOC] @
       [Sm5.CALL]
+
     | K.CALLR (id1, id2) -> 
       [Sm5.PUSH (Sm5.Id id1)] @ 
       [Sm5.PUSH (Sm5.Id id1)] @ 
@@ -67,6 +78,7 @@ module Translator = struct
       [Sm5.CALL]
 
     | K.READ x -> [Sm5.GET; Sm5.PUSH (Sm5.Id x); Sm5.STORE; Sm5.PUSH (Sm5.Id x); Sm5.LOAD]
+
     | K.WRITE expr -> 
       trans expr @ 
       [Sm5.MALLOC; Sm5.BIND "#writeBuffer"] @ 
