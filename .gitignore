@@ -7,6 +7,7 @@
 *.cmx
 *.cmxs
 *.cmxa
+*.temp
 
 # ocamlbuild working directory
 _build/
@@ -37,3 +38,15 @@ HW4/K_skel/lexer.ml
 HW4/K_skel/parser.ml
 HW4/K_skel/parser.mli
 HW4/K_skel/run
+
+HW6/Lambda_skel/parser.mli
+HW6/Lambda_skel/parser.output
+HW6/Lambda_skel/run
+
+
+.vscode/
+
+
+HW6/SM5_skel/gc_test.out
+
+HW6/SM5_skel/run
