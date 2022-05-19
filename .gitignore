@@ -50,3 +50,11 @@ HW6/Lambda_skel/run
 HW6/SM5_skel/gc_test.out
 
 HW6/SM5_skel/run
+
+HW7/CPS_skel/lexer.ml
+
+HW7/CPS_skel/parser.ml
+
+HW7/CPS_skel/parser.mli
+
+HW7/CPS_skel/run
