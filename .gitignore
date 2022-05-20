@@ -58,3 +58,13 @@ HW7/CPS_skel/parser.ml
 HW7/CPS_skel/parser.mli
 
 HW7/CPS_skel/run
+
+HW7/Exn_skel/lexer.ml
+
+HW7/Exn_skel/parser.ml
+
+HW7/Exn_skel/parser.mli
+
+HW7/Exn_skel/run
+
+HW7/Exn_skel/test.sh
