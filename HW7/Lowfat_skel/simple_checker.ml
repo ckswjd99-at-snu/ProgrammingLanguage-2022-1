@@ -322,7 +322,7 @@ let check : M.exp -> M.types = fun exp -> (
   let meqValidList = List.map (fun x -> checkMultiEquation tEnv x) meqList in
   let meqValid = not (List.mem false meqValidList) in
   if meqValid then
-    typToType (tEnv tvname)
+    typToType (typToTerminal tEnv (tEnv tvname))
   else
     raise (M.TypeError "cannot match type!!")
 )
