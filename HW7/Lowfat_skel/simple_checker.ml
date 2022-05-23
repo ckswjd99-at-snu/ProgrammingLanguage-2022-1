@@ -25,9 +25,15 @@ type typ =
   (* Modify, or add more if needed *)
 
 exception CommonError of string
+exception TypeError of string
 
 type typeEquation = typ * typ list
 type typeEquationSystem = typeEquation list
+
+type simplifiedTypeEq = 
+  | Single of typ * typ
+  | Multi of typ * typ list
+type simplifiedTypeEqSystem = simplifiedTypeEq list
 
 type typeEnv = var -> typ
 
@@ -152,113 +158,137 @@ let rec create_type_equation (env: typeEnv) (sys: typeEquationSystem) (exp: M.ex
     sys''
   )
 
-let printSys (system: typeEquationSystem) =
-  let rec typToString (expr : typ) = (
-    match expr with
-    | TInt -> "TInt"
-    | TBool -> "TBool"
-    | TString -> "TString"
-    | TPair (typ1, typ2) -> "TPair (" ^ (typToString typ1) ^ ", " ^ (typToString typ2) ^ ")"
-    | TLoc typ1 -> "TLoc " ^ (typToString typ1)
-    | TFun (typ1, typ2) -> "TFun (" ^ (typToString typ1) ^ " -> " ^ (typToString typ2) ^ ")"
-    | TVar var -> "TVar " ^ var
-  ) 
-  and typListToString (typList : typ list) = (
-    let rec tltsRec (tl : typ list) = (
-      match tl with
-      | tlHead::tlTail -> "; " ^ (typToString tlHead) ^ (tltsRec tlTail)
-      | _ -> ""
-    ) in
-    "[" ^ (tltsRec typList) ^ "]"
+let rec typToString (expr : typ) = (
+  match expr with
+  | TInt -> "TInt"
+  | TBool -> "TBool"
+  | TString -> "TString"
+  | TPair (typ1, typ2) -> "TPair (" ^ (typToString typ1) ^ ", " ^ (typToString typ2) ^ ")"
+  | TLoc typ1 -> "TLoc (" ^ (typToString typ1) ^ ")"
+  | TFun (typ1, typ2) -> "TFun (" ^ (typToString typ1) ^ " -> " ^ (typToString typ2) ^ ")"
+  | TVar var -> "TVar " ^ var
+) 
+let typListToString (typList : typ list) = (
+  let rec tltsRec (tl : typ list) = (
+    match tl with
+    | tlHead::tlTail -> "; " ^ (typToString tlHead) ^ (tltsRec tlTail)
+    | _ -> ""
   ) in
-  let rec typeEquationToString (eq : typeEquation) = (
+  "[" ^ (tltsRec typList) ^ "]"
+)
+let printSys (system: simplifiedTypeEqSystem) =
+  let rec typeEquationToString (eq : simplifiedTypeEq) = ( 
     match eq with
-    | (typ1, typlist) -> (
-      "Eq: " ^ (typToString typ1) ^ " = " ^ (typListToString typlist) ^ "\n"
-    )
+    | Single (fromTyp, toTyp) -> "Eq : " ^ (typToString fromTyp) ^ " = " ^ (typToString toTyp) ^ "\n"
+    | Multi (fromTyp, toTypList) -> "Eq : " ^ (typToString fromTyp) ^ " = " ^ (typListToString toTypList) ^ "\n"
   ) in
   List.iter (fun x -> print_string (typeEquationToString x)) system
 
-let isSingleEquation (equation : typeEquation) : bool =
-  match equation with
-  | (_, typlist) -> (List.length typlist) = 1
 
-let rec removeUseless (system : typeEquationSystem) : typeEquationSystem =
+let rec removeUseless (system : simplifiedTypeEqSystem) : simplifiedTypeEqSystem =
   match system with
   | sysHead::sysTail -> (
-    if isSingleEquation sysHead then
-      let leftOfEq = fst sysHead in
-      let rightOfEq = List.hd (snd sysHead) in
-      if type_is_same (leftOfEq, rightOfEq) then
-        removeUseless sysTail
-      else
-        sysHead::(removeUseless sysTail)
-    else
-      sysHead::(removeUseless sysTail)
+    match sysHead with
+    | Single (fromTyp, toTyp) -> if type_is_same (fromTyp, toTyp) then removeUseless sysTail else sysHead::(removeUseless sysTail)
+    | Multi (fromTyp, toTypList) -> sysHead::(removeUseless sysTail)
   )
   | [] -> []
 
-let rec replaceVar (equation : typeEquation) (system : typeEquationSystem) =
-  let rec replaceVarInEquation (targetEq : typeEquation) (fromTyp : typ) (toTyp : typ) : typeEquation = (
-    match targetEq with
-    | (leftTyp, rightList) -> (
-      (
-        (if type_is_same (leftTyp, fromTyp) then toTyp else leftTyp),
-        List.map (fun x -> if type_is_same (x, fromTyp) then toTyp else leftTyp) rightList
-      )
-    )
-  ) in
-  match equation with
-  | (TVar tv, rt::[]) -> List.map (fun eqInSys -> replaceVarInEquation eqInSys (TVar tv) rt) system
-  | (lt, (TVar tv)::[]) -> List.map (fun eqInSys -> replaceVarInEquation eqInSys (TVar tv) lt) system
-  | (TFun (tf11, tf12), (TFun (tf21, tf22))::[]) -> (
-    let system' = List.map (fun eqInSys -> replaceVarInEquation eqInSys tf11 tf21) system in
-    let system'' = List.map (fun eqInSys -> replaceVarInEquation eqInSys tf21 tf22) system' in
-    system''
-  )
-  | (TPair (tp11, tp12), (TPair (tp21, tp22))::[]) -> (
-    let system' = List.map (fun eqInSys -> replaceVarInEquation eqInSys tp11 tp21) system in
-    let system'' = List.map (fun eqInSys -> replaceVarInEquation eqInSys tp21 tp22) system' in
-    system''
-  )
-  | (TLoc tl1, (TLoc tl2)::[]) -> List.map (fun eqInSys -> replaceVarInEquation eqInSys tl1 tl2) system
-  | (a, b::[]) -> (
-    if type_is_same (a, b) then system else raise (M.TypeError "There is no matched type")
-  )
-  | _ -> raise (CommonError "equation for replacement should be single equation")
-
-
-let replaceVarInSys (system : typeEquationSystem) =
-  let rec rvisRec system num =
-    if List.length system = num then
-      system
-    else
-      let nowEq = List.nth system num in
-      if isSingleEquation nowEq then (
-        let system' = replaceVar nowEq system in
-        rvisRec system' (num+1)
-      )
-      else
-        rvisRec system (num+1)
+let rec solve (system : simplifiedTypeEqSystem) (env : typeEnv) : simplifiedTypeEqSystem * typeEnv =
+  let rec replaceVar (originalTyp : typ) ((fromVar : typ), (toTyp : typ)) : typ = 
+    match originalTyp with
+    | TInt | TBool | TString -> originalTyp
+    | TPair (tp1, tp2) -> TPair (replaceVar tp1 (fromVar, toTyp), replaceVar tp2 (fromVar, toTyp))
+    | TLoc tl -> TLoc (replaceVar tl (fromVar, toTyp))
+    | TFun (tf1, tf2) -> TFun (replaceVar tf1 (fromVar, toTyp), replaceVar tf2 (fromVar, toTyp))
+    | TVar vt -> if (type_is_same (originalTyp, fromVar)) then toTyp else originalTyp
   in
-  rvisRec system 0
+  let rec replaceVarInSys (system : simplifiedTypeEqSystem) ((fromVar : typ), (toTyp : typ)) : simplifiedTypeEqSystem = 
+    match system with
+    | (Single (leftTyp, rightTyp))::sysTail -> (
+      (Single ((replaceVar leftTyp (fromVar, toTyp)), (replaceVar rightTyp (fromVar, toTyp))))::(replaceVarInSys sysTail (fromVar, toTyp))
+    )
+    | (Multi (leftTyp, rightTypList))::sysTail -> (
+      (Multi ((replaceVar leftTyp (fromVar, toTyp)), List.map (fun x -> replaceVar x (fromVar, toTyp)) rightTypList))::(replaceVarInSys sysTail (fromVar, toTyp))
+    )
+    | [] -> system
+  in
+  match system with
+  | sysHead::sysTail -> (
+    match sysHead with
+    | Single (TVar vt, toTyp) -> (
+      let env' = env @+ (vt, toTyp) in
+      let _ = print_string ("Replacement: TVar " ^ vt ^ " -> " ^ (typToString toTyp) ^ "\n") in
+      let system' = replaceVarInSys sysTail (TVar vt, toTyp) in
+      solve system' env'
+    )
+    | Single (fromTyp, TVar vt) -> solve ((Single (TVar vt, fromTyp))::sysTail) env
+    | Single (TPair (tp11, tp12), TPair (tp21, tp22)) -> (
+      let resolvedSys = (Single (tp11, tp21))::(Single (tp12, tp22))::sysTail in
+      solve resolvedSys env
+    )
+    | Single (TLoc tl1, TLoc tl2) -> (
+      let resolvedSys = (Single (tl1, tl2))::sysTail in
+      solve resolvedSys env
+    )
+    | Single (TFun (tf11, tf12), TFun (tf21, tf22)) -> (
+      let resolvedSys = (Single (tf11, tf21))::(Single (tf12, tf22))::sysTail in
+      solve resolvedSys env
+    )
+    | Single (a, b) -> (
+      if type_is_same (a, b) then
+        solve sysTail env
+      else
+        raise (TypeError "cannot match type!!")
+    )
+    | Multi (fromTyp, toTypList) -> (
+      let sameTypeList = List.filter (fun x -> type_is_same (fromTyp, x)) toTypList in
+      let isValid = (List.length sameTypeList) > 0 in
+      if isValid then
+        solve sysTail env
+      else
+        raise (TypeError "cannot match multi type!!")
+    )
+  )
+  | [] -> (system, env)
+
+let rec isTerminal (typExpr : typ) : bool =
+  match typExpr with
+  | TInt | TBool | TString -> true
+  | TPair (tp1, tp2) -> (isTerminal tp1) && (isTerminal tp2)
+  | TLoc tl -> isTerminal tl
+  | TFun (tf1, tf2) -> (isTerminal tf1) && (isTerminal tf2)
+  | TVar _ -> false
+
+let rec typToTerminal (env : typeEnv) (typExpr : typ) =
+  match typExpr with
+  | TInt | TBool | TString -> typExpr
+  | TPair (tp1, tp2) -> TPair ((typToTerminal env tp1), (typToTerminal env tp2))
+  | TLoc tl -> TLoc (typToTerminal env tl)
+  | TFun (tf1, tf2) -> TFun ((typToTerminal env tf1), (typToTerminal env tf2))
+  | TVar tva -> typToTerminal env (env tva)
+
+let rec typToType (input : typ) : M.types = (
+  match input with
+  | TInt -> M.TyInt
+  | TBool -> M.TyBool
+  | TString -> M.TyString
+  | TPair (tp1, tp2) -> TyPair (typToType tp1, typToType tp2)
+  | TLoc tl -> TyLoc (typToType tl)
+  | TFun (tf1, tf2) -> TyArrow (typToType tf1, typToType tf2)
+  | TVar tv -> raise (CommonError "typ has var!!")
+)
 
 (* TODO : Implement this function *)
 let check : M.exp -> M.types = fun exp -> (
   let tv = TVar (new_var ()) in
   let rawSystem = create_type_equation emptyTypeEnv [] exp tv in
-  let singleSystem = List.filter (function (_, x) -> (List.length x) = 1) rawSystem in
-  let multiSystem = List.filter (function (_, x) -> (List.length x) > 1) rawSystem in
+  let singleSystem = List.map (function (fromTyp, toTyp::[]) -> Single (fromTyp, toTyp)) (List.filter (function (_, x) -> (List.length x) = 1) rawSystem) in
+  let multiSystem = List.map (function (fromTyp, toTypList) -> Multi (fromTyp, toTypList)) (List.filter (function (_, x) -> (List.length x) > 1) rawSystem) in
   let system = singleSystem @ multiSystem in
   let _ = Printf.printf "#eq: %d\n" (List.length system) in
-  let _ = printSys system in
-  let system' = removeUseless system in
-  let _ = Printf.printf "#reduced: %d\n" (List.length system') in
-  let _ = printSys system' in
-  let system'' = replaceVarInSys system' in
-  let _ = Printf.printf "#reduced: %d\n" (List.length system'') in
-  let _ = printSys system'' in
-
-  M.TyBool
+  (* let _ = printSys system in *)
+  let (_, env) = solve system emptyTypeEnv in
+  typToType (typToTerminal env tv)
 )
 
