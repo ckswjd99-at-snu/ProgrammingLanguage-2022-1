@@ -68,3 +68,7 @@ HW7/Exn_skel/parser.mli
 HW7/Exn_skel/run
 
 HW7/Exn_skel/test.sh
+
+HW7/Lowfat_skel/run
+
+HW7/Lowfat_skel/parser.mli
