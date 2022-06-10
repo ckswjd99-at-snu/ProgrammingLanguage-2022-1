@@ -18,13 +18,15 @@ let rec trans_obj : Sm5.obj -> Sonata.obj = function
     [
       Sonata.BIND "#cont"
     ] @
-    (trans' command) @
-    [
-      Sonata.PUSH (Sonata.Id "#cont"); 
-      Sonata.PUSH (Sonata.Val (Z 0)); 
-      Sonata.PUSH (Sonata.Id "#nulloc"); 
-      Sonata.CALL
-    ]
+    (trans' (
+      command @
+      [
+        Sm5.PUSH (Sm5.Id "#cont");
+        Sm5.PUSH (Sm5.Val (Sm5.Z 0));
+        Sm5.PUSH (Sm5.Id "#nulloc");
+        Sm5.CALL
+      ]
+    ))
   ))
 
 (* TODO : complete this function *)
@@ -34,8 +36,8 @@ and trans' : Sm5.command -> Sonata.command = function
   | Sm5.STORE :: cmds -> Sonata.STORE :: (trans' cmds)
   | Sm5.LOAD :: cmds -> Sonata.LOAD :: (trans' cmds)
   | Sm5.JTR (c1, c2) :: cmds ->  Sonata.JTR (
-    (trans' c1)@(trans' cmds),
-    (trans' c2)@(trans' cmds)
+    (trans' (c1 @ cmds)),
+    (trans' (c2 @ cmds))
   ) :: []
   | Sm5.MALLOC :: cmds -> Sonata.MALLOC :: (trans' cmds)
   | Sm5.BOX z :: cmds -> Sonata.BOX z :: (trans' cmds)
@@ -45,7 +47,7 @@ and trans' : Sm5.command -> Sonata.command = function
   | Sm5.GET ::cmds -> Sonata.GET :: (trans' cmds)
   | Sm5.PUT ::cmds -> Sonata.PUT :: (trans' cmds)
   | Sm5.CALL :: cmds -> [
-    Sonata.PUSH (Sonata.Fn("#nularg", trans' cmds));
+    Sonata.PUSH (Sonata.Fn("#nularg", trans' ([Sm5.POP]@cmds)));
     Sonata.BIND "#cont";
     Sonata.BIND "#fnloc";
     Sonata.MALLOC;
