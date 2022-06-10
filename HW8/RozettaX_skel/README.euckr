@@ -1,0 +1,62 @@
+SNU 4190.310 Programming Languages 
+
+RozettaX
+
+** ������ �� ���� ���
+
+ sm5.ml���� sm5���� �����, sonata.ml���� sonata ���� ����Ⱑ ���ǵǾ� 
+ �ֽ��ϴ�. �Ʒ��� ���� �����ϸ�, �־��� sm5 ���α׷��� �������� �ۼ��Ͻ� 
+ rozettax �����⿡ ���� �����ϰ� Sonata ���� �����մϴ�. 
+
+  $ make
+  $ ./run examples/test1.sm5
+
+=================================
+
+** SM5 ���� �����ϱ�
+
+�־��� SM5 ���α׷��� SM5 ���� ������ ����� ������ ���� Ȯ���� �� �ֽ��ϴ�.
+������ ����� �Ǿ��ٸ�, Sonata ���� ������ ����� SM5 ���� ������ ����� 
+���ƾ� �մϴ�.
+
+ $ ./run -sm5 examples/test1.sm5
+
+=================================
+
+** ������ Sonata ���α׷� ����ϱ�
+
+ �־��� SM5 ���α׷��� Sonata�� ������ ����� -psonata �ɼ��� ���� ����� �� �ֽ��ϴ�.
+
+ $ ./run -psonata examples/test1.sm5
+
+=================================
+
+** SM5/Sonata ��� ������ ����� ���� �����ϱ�
+
+ �־��� ���α׷��� SM5�� Sonata ���� ������ ��, �� ���ܸ��� ��� ���¸� ����մϴ�. 
+
+ $ ./run -debug examples/test1.sm5
+
+=================================
+
+
+** ���� ���� ����
+ rozettax.ml ���Ͽ� �ִ� trans �Լ��� �ϼ��Ͻð� �� ���ϸ� ������ �ּ���.
+
+--
+�ֿ��� <wschoi@ropas.kaist.ac.kr>
+����ȣ <netj@ropas.snu.ac.kr>
+���ȯ <dk@ropas.snu.ac.kr>
+������ <pronto@ropas.snu.ac.kr>
+�ڴ��� <pudrife@ropas.snu.ac.kr>
+������ <ihji@ropas.snu.ac.kr>
+������ <dreameye@ropas.snu.ac.kr>
+������ <pronto@ropas.snu.ac.kr>
+���ȫ <khheo@ropas.snu.ac.kr>
+������ <skcho@ropas.snu.ac.kr>
+����ȣ <yhyoon@ropas.snu.ac.kr>
+������ <jykim@ropas.snu.ac.kr>
+15 ����� <jschoi@ropas.snu.ac.kr>
+17 �̵��� <dklee@ropas.snu.ac.kr>
+18 �̵���, ����� <dklee,yhbae@ropas.snu.ac.kr>
+
