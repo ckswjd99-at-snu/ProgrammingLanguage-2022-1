@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body { margin: 0; }
+    #wrapper { height: 100vh; width: 100vw; display: flex; flex-direction: column; }
+    .row { width: 100%; display: flex; flex-direction: row;}
+    .col { height: 100%; flex: 1; display: flex; flex-direction: column; }
+    .col:nth-child(2n) {background-color: lightgray;}
+    pre { overflow-y: auto; height: 800px;}
+    
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <div class="row">
+      <div class="col">
+        <h1>STACK</h1>
+        <pre id="stack"></pre>
+      </div>
+      <div class="col">
+        <h1>MEMORY</h1>
+        <pre id="mem"></pre>
+      </div>
+      <div class="col">
+        <h1>ENV</h1>
+        <pre id="env"></pre>
+      </div>
+      <div class="col">
+        <h1>COMMAND</h1>
+        <pre id="comm"></pre>
+      </div>
+    </div>
+    <div class="row" height="300px">
+      <input type="file" id="myFile">
+      <textarea id="rawtext"></textarea>
+      <button onclick="loadText();render(nowIndex)">load</button>
+      <input type="number" id="index">
+      <button onclick="render(getIndexInput())">move</button>
+      <button onclick="render(--nowIndex)">prev</button>
+      <button onclick="render(++nowIndex)">next</button>
+    </div>
+  </div>
+
+  <script>
+    let raw = "";
+    let steps = [];
+    let nowIndex = 1;
+    const loadText = () => {
+      raw = document.querySelector("#rawtext").value;
+      steps = raw.split("====== Machine state ======")
+      nowIndex = 0;
+    }
+    const getIndexInput = () => document.querySelector("#index").value
+    const render = (index) => {
+      let temptext = steps[index];
+      const stack = temptext.split("***** Stack *****")[1].split("***** Environment *****")[0];
+      const memory = temptext.split("***** Memory *****")[1];
+      const env = temptext.split("***** Environment *****")[1].split("***** Memory *****")[0];
+      const command = temptext.split("***** Command *****")[1].split("***** Stack *****")[0];
+
+      document.querySelector("#stack").innerHTML = stack;
+      document.querySelector("#mem").innerHTML = memory;
+      document.querySelector("#env").innerHTML = env;
+      document.querySelector("#comm").innerHTML = command;
+    }
+
+    var input = document.getElementById("myFile");
+    input.addEventListener("change", function () {
+      if (this.files && this.files[0]) {
+        var myFile = this.files[0];
+        var reader = new FileReader();
+        
+        reader.addEventListener('load', function (e) {
+          raw = e.target.result;
+          steps = raw.split("====== Machine state ======")
+          nowIndex = 0;
+        });
+        
+        reader.readAsBinaryString(myFile);
+      }   
+    });
+
+
+
+  </script>
+</body>
+</html>

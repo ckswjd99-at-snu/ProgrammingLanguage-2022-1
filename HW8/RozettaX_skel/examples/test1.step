@@ -1,0 +1,3012 @@
+====== Machine state ======
+
+***** Command *****
+[push 10;
+malloc;
+bind x;
+push x;
+store;
+push (n,
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  );
+bind inc;
+push 0;
+malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[]
+
+***** Memory *****
+
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[malloc;
+bind x;
+push x;
+store;
+push (n,
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  );
+bind inc;
+push 0;
+malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[10]
+
+***** Environment *****
+[]
+
+***** Memory *****
+
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[bind x;
+push x;
+store;
+push (n,
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  );
+bind inc;
+push 0;
+malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<1, 0>;
+10]
+
+***** Environment *****
+[]
+
+***** Memory *****
+
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push x;
+store;
+push (n,
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  );
+bind inc;
+push 0;
+malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[10]
+
+***** Environment *****
+[x : <1, 0>]
+
+***** Memory *****
+
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[store;
+push (n,
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  );
+bind inc;
+push 0;
+malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<1, 0>;
+10]
+
+***** Environment *****
+[x : <1, 0>]
+
+***** Memory *****
+
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push (n,
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  );
+bind inc;
+push 0;
+malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[bind inc;
+push 0;
+malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>]]
+
+***** Environment *****
+[x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push 0;
+malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[malloc;
+bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[0]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[bind x;
+push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<2, 0>;
+0]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push x;
+store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[0]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[store;
+push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<2, 0>;
+0]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push inc;
+push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push inc;
+push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>]]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push 1;
+malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>]]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[malloc;
+call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[1;
+(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>]]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[call;
+pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<3, 0>;
+1;
+(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>]]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[bind inc;
+push x;
+load;
+push n;
+load;
+add;
+push x;
+store;
+push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[(fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>]]
+
+***** Environment *****
+[n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<3, 0> : 1
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[push x;
+load;
+push n;
+load;
+add;
+push x;
+store;
+push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<3, 0> : 1
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[load;
+push n;
+load;
+add;
+push x;
+store;
+push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[<1, 0>]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<3, 0> : 1
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[push n;
+load;
+add;
+push x;
+store;
+push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[10]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<3, 0> : 1
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[load;
+add;
+push x;
+store;
+push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[<3, 0>;
+10]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<3, 0> : 1
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[add;
+push x;
+store;
+push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[1;
+10]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<3, 0> : 1
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[push x;
+store;
+push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[11]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<3, 0> : 1
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[store;
+push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[<1, 0>;
+11]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<3, 0> : 1
+<2, 0> : 0
+<1, 0> : 10
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[push x;
+load;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[load;
+unbind;
+pop]
+
+***** Stack *****
+[<1, 0>]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[unbind;
+pop]
+
+***** Stack *****
+[11]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[pop]
+
+***** Stack *****
+[(inc, (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>]);
+11]
+
+***** Environment *****
+[n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[]
+
+***** Stack *****
+[11]
+
+***** Environment *****
+[n : <3, 0>;
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+Command :
+  [pop;
+  malloc;
+  bind #write_var;
+  push x;
+  load;
+  push #write_var;
+  store;
+  push #write_var;
+  load;
+  put;
+  push #write_var;
+  load;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop;
+  unbind;
+  pop]
+Env :
+  [x : <2, 0>;
+  inc : (fun n ->
+    [bind inc;
+    push x;
+    load;
+    push n;
+    load;
+    add;
+    push x;
+    store;
+    push x;
+    load;
+    unbind;
+    pop]
+    ), Env =
+    [x : <1, 0>];
+  x : <1, 0>]
+
+====== Machine state ======
+
+***** Command *****
+[pop;
+malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[11]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[malloc;
+bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[bind #write_var;
+push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<4, 0>]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push x;
+load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[load;
+push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<2, 0>]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push #write_var;
+store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[0]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[store;
+push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<4, 0>;
+0]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[push #write_var;
+load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[load;
+put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<4, 0>]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[put;
+push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[0]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+0
+====== Machine state ======
+
+***** Command *****
+[push #write_var;
+load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[load;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[<4, 0>]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[0]
+
+***** Environment *****
+[#write_var : <4, 0>;
+x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[pop;
+unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[(#write_var, <4, 0>);
+0]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[unbind;
+pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[0]
+
+***** Environment *****
+[x : <2, 0>;
+inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[pop;
+unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[(x, <2, 0>);
+0]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[unbind;
+pop;
+unbind;
+pop]
+
+***** Stack *****
+[0]
+
+***** Environment *****
+[inc : (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>];
+x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[pop;
+unbind;
+pop]
+
+***** Stack *****
+[(inc, (fun n ->
+  [bind inc;
+  push x;
+  load;
+  push n;
+  load;
+  add;
+  push x;
+  store;
+  push x;
+  load;
+  unbind;
+  pop]
+  ), Env =
+  [x : <1, 0>]);
+0]
+
+***** Environment *****
+[x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[unbind;
+pop]
+
+***** Stack *****
+[0]
+
+***** Environment *****
+[x : <1, 0>]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
+====== Machine state ======
+
+***** Command *****
+[pop]
+
+***** Stack *****
+[(x, <1, 0>);
+0]
+
+***** Environment *****
+[]
+
+***** Memory *****
+<4, 0> : 0
+<1, 0> : 11
+<3, 0> : 1
+<2, 0> : 0
+
+***** Continuation *****
+
+
