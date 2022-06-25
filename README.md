@@ -4,7 +4,7 @@ Assignments in **SNU CSE Programming Language (4190.310)** lecture, at 2022 spri
 
 All the codes are written in **OCaml**, version 4.02.3.
 
-## [HW1]()
+## [HW1](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW1/hw1.pdf)
 6 basic problems to be familiar with OCaml programming language.
 
 To compile and run all testcases:
@@ -14,7 +14,7 @@ $ cd HW1
 $ make test
 ```
 
-## [HW2]()
+## [HW2](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW2/hw2.pdf)
 6 other basic problems to be familiar with OCaml programming language.
 
 To compile and run all testcases:
@@ -24,8 +24,8 @@ $ cd HW2
 $ make test
 ```
 
-## [HW3]()
-Make interpreter of [K--]() language.
+## [HW3](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW3/hw3.pdf)
+Make interpreter of [K--](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW3/K--.pdf) language.
 
 To compile the interpreter and run all testcases:
 
@@ -34,9 +34,9 @@ $ cd HW3/K__skel
 $ ./test.sh
 ```
 
-## [HW4]()
+## [HW4](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW4/hw4.pdf)
 ### Ex1: K- Interpreter
-Make interpreter of [K-]() language.
+Make interpreter of [K-](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW4/K-.pdf) language.
 
 To compile the interpreter and run all testcases:
 
@@ -74,12 +74,12 @@ $ cd HW4
 $ make test
 ```
 
-## [HW5]()
+## [HW5](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW5/hw5.pdf)
 Writing an essay about the origins of two big sphere of gravity in PL world: 
 - imperative (Turing machine)
 - functional (lambda calculus)
 
-## [HW6]()
+## [HW6](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW6/hw6.pdf)
 ### Ex1: SM5
 Make translator, which translates K- program to SM5 program.
 
@@ -103,7 +103,7 @@ $ cd HW6/Lambda_skel
 $ ./test.sh
 ```
 
-## [HW7]()
+## [HW7](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW7/hw7.pdf)
 ### Ex1: CPS - Continuation Passing Style
 Make translator, which translates lambda calculus expression into CPS expression.
 
@@ -123,7 +123,7 @@ $ ./test.sh
 ```
 
 ### Ex3: M Interpreter
-Make interpreter of [M]() language.
+Make interpreter of [M](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW7/M.pdf) language.
 
 To compile the interpreter and run all testcases:
 
@@ -144,7 +144,7 @@ $ cd HW7/Lowfat_skel
 $ ./test.sh
 ```
 
-## [HW8]()
+## [HW8](https://github.com/ckswjd99/SNUPL-2022-1/blob/main/HW8/hw8.pdf)
 ### Ex1: SM5 RozettaX
 Make translator, which translates SM5 program into Sonata program.
 
