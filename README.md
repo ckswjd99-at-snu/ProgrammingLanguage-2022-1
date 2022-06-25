@@ -1,8 +1,8 @@
 # SNUPL 2022-1
 
-Assignments in SNU CSE Programming Language (4190.310) lecture, at 2022 spring.
+Assignments in **SNU CSE Programming Language (4190.310)** lecture, at 2022 spring.
 
-All the codes are written in OCaml, version 4.02.3.
+All the codes are written in **OCaml**, version 4.02.3.
 
 ## [HW1]()
 6 basic problems to be familiar with OCaml programming language.
