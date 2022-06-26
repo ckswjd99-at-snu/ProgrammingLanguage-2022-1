@@ -1,4 +1,4 @@
-# SNUPL 2022-1
+# Programming Language 2022-1
 
 Assignments in **SNU CSE Programming Language (4190.310)** lecture, at 2022 spring.
 
